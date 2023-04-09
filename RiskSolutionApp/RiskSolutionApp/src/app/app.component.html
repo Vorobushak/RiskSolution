@@ -1,0 +1,64 @@
+<div id="back" class="container-fluid bg-primary w-100 d-flex row justify-content-center align-items-center p-2 m-0">
+    <div class="container p-5 col-10 bg-white rounded">
+      <form [formGroup]="this.formGroup" (ngSubmit)="Search(errorModal)">
+        <h2></h2>
+        <div class="input-group">
+          <input type="input" formControlName="value" class="form-control" name="searchFieldValue" id="searchFieldValueInput" placeholder="Текст для пошуку">
+          <button class="btn btn-outline-primary" type="submit" id="button-search">Search</button>
+        </div>
+        <hr>
+        <h6 class="d-block">Додаткові налаштування</h6>
+        <div class="container-fluid d-flex gap-4 m-0 p-0">
+          <div class="w-auto">
+            <label for="violationSelect">Пошук таких видів порушень: </label>
+            <select id="violationSelect" formControlName="ViolationTypeChosen" class="form-select form-select-md w-100" required="true">
+              <option *ngFor="let item of ViolationTypesList" [value]="item.value" [selected]="!item.value" [disabled]="!item.value">{{item.text}}</option>
+            </select>
+
+          </div>
+          <div class="w-auto">
+            <label for="fieldSelect">Пошукові поля:</label>
+            <select id="fieldSelect" formControlName="field" class="form-select form-select-md w-auto" value="0">
+              <option *ngFor="let item of FieldsList" [value]="item.value" [selected]="!item.value">{{item.text}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <ng-container *ngIf="isLoading && !result">
+        <div class="w-100 d-flex justify-content-center pt-3">
+          <div class="container p-5 spinner-border text-primary" role="status">
+            Loading...
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="!isLoading && result && result?.length" >
+        <table class="table w-100">
+          <thead>
+            <tr>
+              <th>Threat</th>
+              <th>Source</th>
+              <th>Attack Imp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of result">
+              <td>{{item.threat}}</td>
+              <td>{{item.sourceOfThreat}}</td>
+              <td>{{item.attackImplementation}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+      <ng-container *ngIf="!isLoading && result && !result?.length">
+        <h2>По такому запиту даних немає, (маловирогідно) сталась помилка</h2>
+      </ng-container>
+    </div>
+</div>
+
+<ng-template #errorModal let-modal>
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        Введіть вид порушень, будь ласка!
+      </div>
+    </div>
+</ng-template>
