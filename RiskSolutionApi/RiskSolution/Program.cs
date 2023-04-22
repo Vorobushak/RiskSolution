@@ -13,11 +13,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<RiskContext>(
-    options => options.UseSqlServer("Server=localhost;Database=risk_database;Encrypt=False;Trusted_Connection=True;user id=sa;password=PinkLemonade_1577"));
+    options => options.UseSqlServer("Data Source=db;Initial Catalog=risk_database;Persist Security Info=True;TrustServerCertificate=true;Encrypt=true;User ID=sa;Password=PinkLemonade_1577"));
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
-    builder.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
 }));
 
 builder.Services.AddTransient<SearchService>();
@@ -25,14 +25,9 @@ builder.Services.AddTransient<SearchService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-    using var scope = app.Services.CreateScope();
-    var riskContext = scope.ServiceProvider.GetRequiredService<RiskContext>();
-    riskContext.Database.Migrate();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("corsapp");
 

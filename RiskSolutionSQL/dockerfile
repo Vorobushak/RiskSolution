@@ -5,18 +5,30 @@ ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=PinkLemonade_1577
 ENV MSSQL_PID=Express
 
-# Copy database backup file to container
-COPY risk_database.bak /var/opt/mssql/data/MyDatabase.bak
-
 USER root
 
+# Copy database backup file to container
+COPY risk_database.bak /var/opt/mssql/data/risk_database.bak
+
+#RUN mkdir -p /usr/src/app/scriptdata
+#WORKDIR /usr/src/app
+#COPY scriptdata/acc.csv /usr/src/app/scriptdata
+#COPY scriptdata/con.csv /usr/src/app/scriptdata
+#COPY scriptdata/int.csv /usr/src/app/scriptdata
+#COPY FillData.sql /usr/src/app
+
 # Grant permissions to the database backup file
-RUN chmod +r /var/opt/mssql/data/MyDatabase.bak
+RUN chmod +r /var/opt/mssql/data/risk_database.bak
+#RUN chmod +r /usr/src/app/FillData.sql
+#RUN chmod +r /usr/src/app/scriptdata
 
 # Restore database from backup file
 RUN (/opt/mssql/bin/sqlservr --accept-eula & ) | grep -q "Service Broker manager has started" \
     && /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'PinkLemonade_1577' \
-    -Q "RESTORE DATABASE MyDatabase FROM DISK = '/var/opt/mssql/data/MyDatabase.bak' WITH MOVE 'MyDatabase' TO '/var/opt/mssql/data/MyDatabase.mdf', MOVE 'MyDatabase_log' TO '/var/opt/mssql/data/MyDatabase_log.ldf'"
+    -Q "RESTORE DATABASE risk_database FROM DISK = '/var/opt/mssql/data/risk_database.bak' WITH MOVE 'risk_database' TO '/var/opt/mssql/data/risk_database.mdf', MOVE 'risk_database_log' TO '/var/opt/mssql/data/risk_database_log.ldf'"
+
+# Run the initialization script when the container starts
+#CMD /bin/bash -c "sleep 30s && /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P PinkLemonade_1577 -i /usr/src/app/FillData.sql"
 
 # Expose SQL Server port
 EXPOSE 1433

@@ -1,0 +1,22 @@
+version: '3.9'
+services:
+  risk_api:
+    image: risk_api
+    container_name: api
+    ports:
+      - "5299:5299"
+    depends_on:
+      - risk_db
+  risk_db:
+    image: risk_db
+    container_name: db
+    ports:
+      - "9001:1433"
+    environment:
+      SA_PASSWORD: "PinkLemonade_1577"
+      ACCEPT_EULA: "Y"
+  risk_app:
+    image: risk_app
+    container_name: app
+    ports:
+      - "4200:4200"

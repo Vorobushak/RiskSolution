@@ -1,7 +1,11 @@
 -- Треба першим знаком в 2+ рядках поставити ;, а кодування в файлах змінити на UTF-8
 
+CREATE DATABASE risk_database;
+
+USE risk_database;
+
 BULK INSERT AccessibilityViolations
-FROM 'C:\RiskData\acc.csv'
+FROM '/usr/src/app/scriptdata/acc.csv'
 WITH (
 	CODEPAGE = '65001',
   FIELDTERMINATOR = ';',
@@ -10,7 +14,7 @@ WITH (
 );
 
 BULK INSERT ConfidentialityViolations
-FROM 'C:\RiskData\con.csv'
+FROM '/usr/src/app/scriptdata/con.csv'
 WITH (
 CODEPAGE = '65001',
   FIELDTERMINATOR = ';',
@@ -19,7 +23,7 @@ CODEPAGE = '65001',
 );
 
 BULK INSERT IntegrityViolations
-FROM 'C:\RiskData\int.csv'
+FROM '/usr/src/app/scriptdata/int.csv'
 WITH (
 CODEPAGE = '65001',
   FIELDTERMINATOR = ';',
