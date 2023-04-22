@@ -1,0 +1,22 @@
+FROM mcr.microsoft.com/mssql/server:2019-latest
+
+# Set environment variables
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=PinkLemonade_1577
+ENV MSSQL_PID=Express
+
+# Copy database backup file to container
+COPY risk_database.bak /var/opt/mssql/data/MyDatabase.bak
+
+USER root
+
+# Grant permissions to the database backup file
+RUN chmod +r /var/opt/mssql/data/MyDatabase.bak
+
+# Restore database from backup file
+RUN (/opt/mssql/bin/sqlservr --accept-eula & ) | grep -q "Service Broker manager has started" \
+    && /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P 'PinkLemonade_1577' \
+    -Q "RESTORE DATABASE MyDatabase FROM DISK = '/var/opt/mssql/data/MyDatabase.bak' WITH MOVE 'MyDatabase' TO '/var/opt/mssql/data/MyDatabase.mdf', MOVE 'MyDatabase_log' TO '/var/opt/mssql/data/MyDatabase_log.ldf'"
+
+# Expose SQL Server port
+EXPOSE 1433

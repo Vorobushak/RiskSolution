@@ -3467,11 +3467,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\RiskSolution\\RiskSolutionApi\\RiskSolution\\RiskSolution.csproj",
+      "projectUniqueName": "D:\\cloneRisk\\RiskSolution\\RiskSolutionApi\\RiskSolution\\RiskSolution.csproj",
       "projectName": "RiskSolution",
-      "projectPath": "D:\\RiskSolution\\RiskSolutionApi\\RiskSolution\\RiskSolution.csproj",
+      "projectPath": "D:\\cloneRisk\\RiskSolution\\RiskSolutionApi\\RiskSolution\\RiskSolution.csproj",
       "packagesPath": "C:\\Users\\Андрій\\.nuget\\packages\\",
-      "outputPath": "D:\\RiskSolution\\RiskSolutionApi\\RiskSolution\\obj\\",
+      "outputPath": "D:\\cloneRisk\\RiskSolution\\RiskSolutionApi\\RiskSolution\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Андрій\\AppData\\Roaming\\NuGet\\NuGet.Config",

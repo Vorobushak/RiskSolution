@@ -13,7 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<RiskContext>(
-    options => options.UseSqlServer("Server=localhost;Database=risk_database;Encrypt=False;Trusted_Connection=True;user id=riskuser;password=riskpass"));
+    options => options.UseSqlServer("Server=localhost;Database=risk_database;Encrypt=False;Trusted_Connection=True;user id=sa;password=PinkLemonade_1577"));
 
 builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
 {
@@ -29,6 +29,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    using var scope = app.Services.CreateScope();
+    var riskContext = scope.ServiceProvider.GetRequiredService<RiskContext>();
+    riskContext.Database.Migrate();
 }
 
 app.UseCors("corsapp");

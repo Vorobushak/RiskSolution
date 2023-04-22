@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vgAqsl9wWS0MPrFrKPZVdUsn9+qiL8ZiHTrI5iJ6qpJZ1xXdHSGMciOCC1rtgaeDydb0lxRYwUvF3QJlE13TKw==",
+  "dgSpecHash": "z9GVTm1RmKrdNgltDF/maufNjsnj5R8hi6bRNFo6L25j1ty2DQPvQyxsPBxke5Ys8fvnrr7lI6fYmJGIbjdm/Q==",
   "success": true,
-  "projectFilePath": "D:\\RiskSolution\\RiskSolutionApi\\RiskSolution\\RiskSolution.csproj",
+  "projectFilePath": "D:\\cloneRisk\\RiskSolution\\RiskSolutionApi\\RiskSolution\\RiskSolution.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Андрій\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Андрій\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",

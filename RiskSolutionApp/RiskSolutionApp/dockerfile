@@ -1,0 +1,30 @@
+# Use Node.js 15.1.0 as the base image
+FROM node:14
+
+# Set the working directory
+WORKDIR /app
+
+#RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+#RUN apt-get update && apt-get install -y nodejs
+
+# Copy the package.json and package-lock.json files to the container
+COPY package*.json ./
+
+# Install the dependencies
+RUN npm install
+
+RUN npm install @popperjs/core
+
+RUN npm install -g @angular/cli
+
+# Copy the rest of the application files to the container
+COPY . .
+
+# Build the Angular app
+RUN npm run build --prod
+
+# Expose port 80 to the outside world
+EXPOSE 4200
+
+# Start the Angular app
+CMD ng serve --host=0.0.0.0 --port=4200
